@@ -1,6 +1,7 @@
 from reportlab.pdfgen import canvas
 from flask import Flask, render_template, request, redirect, session, jsonify, send_file
 import sqlite3
+import whois
 from werkzeug.security import generate_password_hash, check_password_hash
 app = Flask(__name__)
 
@@ -287,6 +288,40 @@ def export_pdf():
     c.save()
 
     return send_file(filename, as_attachment=True)
+
+@app.route("/whois", methods=["GET", "POST"])
+def whois_lookup():
+
+    if "user" not in session:
+        return redirect("/login")
+
+    result = None
+
+    if request.method == "POST":
+
+        domain = request.form["domain"]
+
+        try:
+            data = whois.whois(domain)
+
+            result = f"""
+Domain Name: {data.domain_name}
+
+Registrar: {data.registrar}
+
+Creation Date: {data.creation_date}
+
+Expiration Date: {data.expiration_date}
+
+Name Servers: {data.name_servers}
+
+Status: {data.status}
+"""
+
+        except Exception as e:
+            result = f"Error: {e}"
+
+    return render_template("whois.html", result=result)
 
 if __name__ == "__main__":
     app.run(debug=True)

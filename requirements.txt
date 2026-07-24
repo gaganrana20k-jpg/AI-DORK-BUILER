@@ -2,3 +2,4 @@ Flask
 Werkzeug
 gunicorn
 reportlab
+python-whois
