@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>IP Lookup</title>
+</head>
+<body>
+
+<h1>🌍 IP Address Lookup</h1>
+
+<form method="POST">
+
+    <input
+        type="text"
+        name="ip"
+        placeholder="8.8.8.8"
+        required
+    >
+
+    <button type="submit">
+        Lookup
+    </button>
+
+</form>
+
+{% if result %}
+
+<hr>
+
+<h3>Result</h3>
+
+<pre>{{ result }}</pre>
+
+{% endif %}
+
+<br>
+
+<a href="/dashboard">
+    <button>⬅ Back</button>
+</a>
+
+</body>
+</html>

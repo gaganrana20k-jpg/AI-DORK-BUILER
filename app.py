@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, redirect, session, jsonify, s
 import sqlite3
 import whois
 import dns.resolver
+import requests
 from werkzeug.security import generate_password_hash, check_password_hash
 app = Flask(__name__)
 
@@ -361,6 +362,54 @@ def dns_lookup():
             result = "Error: " + str(e)
 
     return render_template("dns.html", result=result)
+
+@app.route("/iplookup", methods=["GET", "POST"])
+def ip_lookup():
+
+    if "user" not in session:
+        return redirect("/login")
+
+    result = None
+
+    if request.method == "POST":
+
+        ip = request.form["ip"]
+
+        try:
+            response = requests.get(f"http://ip-api.com/json/{ip}")
+            data = response.json()
+
+            if data["status"] == "success":
+
+                result = f"""
+IP Address : {data['query']}
+
+Country    : {data['country']}
+
+Region     : {data['regionName']}
+
+City       : {data['city']}
+
+ZIP Code   : {data['zip']}
+
+Latitude   : {data['lat']}
+
+Longitude  : {data['lon']}
+
+Timezone   : {data['timezone']}
+
+ISP        : {data['isp']}
+
+Organization : {data['org']}
+"""
+
+            else:
+                result = "Invalid IP Address."
+
+        except Exception as e:
+            result = f"Error: {e}"
+
+    return render_template("iplookup.html", result=result)
 
 if __name__ == "__main__":
     app.run(debug=True)
