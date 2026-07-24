@@ -2,6 +2,7 @@ from reportlab.pdfgen import canvas
 from flask import Flask, render_template, request, redirect, session, jsonify, send_file
 import sqlite3
 import whois
+import dns.resolver
 from werkzeug.security import generate_password_hash, check_password_hash
 app = Flask(__name__)
 
@@ -322,6 +323,44 @@ Status: {data.status}
             result = f"Error: {e}"
 
     return render_template("whois.html", result=result)
+
+@app.route("/dns", methods=["GET", "POST"])
+def dns_lookup():
+
+    if "user" not in session:
+        return redirect("/login")
+
+    result = ""
+
+    if request.method == "POST":
+
+        domain = request.form["domain"]
+
+        try:
+            # A Records
+            result += " A Records:\n"
+            for r in dns.resolver.resolve(domain, "A"):
+                result += str(r) + "\n"
+
+            # MX Records
+            result += "\n MX Records:\n"
+            for r in dns.resolver.resolve(domain, "MX"):
+                result += str(r.exchange) + "\n"
+
+            # NS Records
+            result += "\n NS Records:\n"
+            for r in dns.resolver.resolve(domain, "NS"):
+                result += str(r) + "\n"
+
+            # TXT Records
+            result += "\n TXT Records:\n"
+            for r in dns.resolver.resolve(domain, "TXT"):
+                result += str(r) + "\n"
+
+        except Exception as e:
+            result = "Error: " + str(e)
+
+    return render_template("dns.html", result=result)
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DNS Lookup</title>
+</head>
+<body>
+
+<h1>📡 DNS Lookup</h1>
+
+<form method="POST">
+
+    <input
+        type="text"
+        name="domain"
+        placeholder="example.com"
+        required
+    >
+
+    <button type="submit">
+        Lookup
+    </button>
+
+</form>
+
+{% if result %}
+
+<hr>
+
+<h3>DNS Records</h3>
+
+<pre>{{ result }}</pre>
+
+{% endif %}
+
+<br>
+
+<a href="/dashboard">
+    <button>⬅ Back</button>
+</a>
+
+</body>
+</html>

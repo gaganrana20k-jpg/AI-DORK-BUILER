@@ -3,3 +3,4 @@ Werkzeug
 gunicorn
 reportlab
 python-whois
+dnspython
