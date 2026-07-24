@@ -306,22 +306,62 @@ def whois_lookup():
         try:
             data = whois.whois(domain)
 
+            # Clean Domain Name
+            domain_name = data.domain_name
+            if isinstance(domain_name, list):
+                domain_name = domain_name[0]
+
+            # Clean Creation Date
+            creation = data.creation_date
+            print("Creation:", creation)
+            print("Type:", type(creation))
+            if isinstance(creation, list):
+                creation = creation[0]
+                if creation:
+                    creation = creation.strftime("%d %B %Y")
+
+            # Clean Expiration Date
+            expiration = data.expiration_date
+            print("Expiration:", expiration)
+            print("Type:", type(expiration))
+            if isinstance(expiration, list):
+                expiration = expiration[0]
+                if expiration:
+                    expiration = expiration.strftime("%d %B %Y")
+
+            # Clean Name Servers
+            nameservers = data.name_servers
+
+            if isinstance(nameservers, (list, set)):
+                nameservers = "\n".join(sorted(nameservers))
+
+            # Clean Status
+            status = data.status
+            if isinstance(status, list):
+                status = "\n".join(status[:6])
+
             result = f"""
-Domain Name: {data.domain_name}
+            Domain Name
+{domain_name}
 
-Registrar: {data.registrar}
+Registrar
+{data.registrar}
 
-Creation Date: {data.creation_date}
+Creation Date
+{creation}
 
-Expiration Date: {data.expiration_date}
+Expiration Date
+{expiration}
 
-Name Servers: {data.name_servers}
+Name Servers
+{nameservers}
 
-Status: {data.status}
+ Status
+{status}
 """
 
         except Exception as e:
-            result = f"Error: {e}"
+            result = f"❌ Error: {e}"
 
     return render_template("whois.html", result=result)
 

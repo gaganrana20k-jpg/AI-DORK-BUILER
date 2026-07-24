@@ -481,3 +481,95 @@ footer{
     background:#1d4ed8;
 
 }
+
+/* WHOIS PAGE */
+
+.container{
+
+    width:80%;
+
+    margin:auto;
+
+    text-align:center;
+
+}
+
+.subtitle{
+
+    color:#cfd8dc;
+
+    margin-bottom:20px;
+
+}
+
+input{
+
+    width:60%;
+
+    padding:12px;
+
+    border-radius:10px;
+
+    border:none;
+
+    font-size:16px;
+
+    margin-bottom:15px;
+
+}
+
+button{
+
+    padding:12px 20px;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    background:#00c8ff;
+
+    color:white;
+
+    font-weight:bold;
+
+}
+
+button:hover{
+
+    background:#0095d9;
+
+}
+
+.result-card{
+
+    background:#1b263b;
+
+    border-radius:15px;
+
+    padding:20px;
+
+    margin-top:25px;
+
+    text-align:left;
+
+    box-shadow:0 0 20px rgba(0,200,255,.2);
+
+}
+
+.result-card h2{
+
+    color:#00c8ff;
+
+}
+
+pre{
+
+    color:white;
+
+    white-space:pre-wrap;
+
+    font-size:15px;
+
+}
