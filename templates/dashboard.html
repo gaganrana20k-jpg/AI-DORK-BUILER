@@ -29,59 +29,60 @@
         <p>Favorites</p>
     </div>
 
+<div class="dashboard-cards">
+
+    <div class="card">
+        <h3> Generate Dorks</h3>
+        <p>Create advanced Google Dorks.</p>
+        <a href="/">Open Generator</a>
+    </div>
+
+    <div class="card">
+        <h3> History</h3>
+        <p>View all your generated Google Dorks.</p>
+        <a href="/history">Open History</a>
+    </div>
+
+    <div class="card">
+        <h3>Favorites</h3>
+        <p>Save your favorite dorks.</p>
+        <a href="/favorites">Open Favorites</a>
+    </div>
+
+    <div class="card">
+        <h3> WHOIS Lookup</h3>
+        <p>View domain registration details.</p>
+        <a href="/whois">Open WHOIS</a>
+    </div>
+
+    <div class="card">
+        <h3> DNS Lookup</h3>
+        <p>View DNS records of any domain.</p>
+        <a href="/dns">Open DNS</a>
+    </div>
+
+    <div class="card">
+        <h3> IP Lookup</h3>
+        <p>Find geolocation and ISP information.</p>
+        <a href="/iplookup">Open IP Lookup</a>
+    </div>
+
 </div>
 
-    <div class="dashboard-cards">
-
-        <div class="card">
-            <h3> Generate Dorks</h3>
-            <p>Create advanced Google Dorks.</p>
-            <a href="/">Open Generator</a>
-        </div>
-        <div class="card">
-            <h3> History</h3>
-            <p>View all your generated Google Dorks.</p>
-            <a href="/history">Open History</a>
-        </div>
-
-        <div class="card">
-            <h3> Favorites</h3>
-            <p>Save your favorite dorks.</p>
-            <a href="/favorites">Open Favorites</a>
-        </div>
-       
-        <div class="card">
-            <h3> WHOIS Lookup</h3>
-            <p>View domain registration details.</p>
-            <a href="/whois">
-                <button>Open</button>
-            </a>
-        </div>
-        <div class="card">
-            <h3> DNS Lookup</h3>
-            <p>View DNS records of a domain.</p>
-            <a href="/dns">
-                <button>Open DNS</button>
-            </a>
-        </div>
-        
-        <div class="card">
-            <h3> IP Lookup</h3>
-            <p>Find geolocation and ISP information.</p>
-            <a href="/iplookup">
-                <button>Open IP Lookup</button>
-            </a>
-        </div>
-
-    </div>
+</div>
 
     <br>
     
-    <a href="/logout">
-        <button class="login-btn">Logout</button>
-    </a>
+    <button class="login-btn" onclick="confirmLogout()">
+     Logout
+</button>
 
 </div>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+<footer>
+    <p>© 2026 AI Dork Builder </p>
+</footer>
 
 </body>
 </html>

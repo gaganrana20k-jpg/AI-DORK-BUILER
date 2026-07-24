@@ -1,42 +1,82 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>DNS Lookup</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
 </head>
+
 <body>
 
-<h1>📡 DNS Lookup</h1>
+<div class="search-box">
 
-<form method="POST">
+    <h1> DNS Lookup</h1>
 
-    <input
-        type="text"
-        name="domain"
-        placeholder="example.com"
-        required
-    >
+    <p class="subtitle">
+        Retrieve DNS records for any domain.
+    </p>
 
-    <button type="submit">
-        Lookup
-    </button>
+    <form method="POST" id="lookupForm">
 
-</form>
+        <input
+            type="text"
+            name="domain"
+            placeholder="Enter domain (example.com)"
+            required
+        >
+
+        <button type="submit" id="loockupBtn">
+             Lookup
+        </button>
+
+    </form>
+
+</div>
 
 {% if result %}
 
-<hr>
+<div class="result-card">
 
-<h3>DNS Records</h3>
+    <h2>DNS Result</h2>
 
-<pre>{{ result }}</pre>
+    <div id="result">
+
+<div class="info-grid">
+
+{% for key, value in result.items() %}
+
+<div class="info-card">
+
+<h3>{{ key }}</h3>
+
+<p>{{ value }}</p>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+<div class="button-group">
+
+    <button onclick="copyResult()">📋 Copy Result</button>
+
+    <a href="/dashboard" class="back-btn">⬅ Back to Dashboard</a>
+
+</div>
+</div>
 
 {% endif %}
 
-<br>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
-<a href="/dashboard">
-    <button>⬅ Back</button>
-</a>
+<footer>
+    <p>© 2026 AI Dork Builder </p>
+</footer>
 
 </body>
 </html>

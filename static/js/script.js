@@ -30,9 +30,9 @@ dorks.forEach(function(dork){
         <p>${dork}</p>
 
         <div class="button-group">
-    <button onclick="copyText('${dork}')">📋 Copy</button>
+    <button onclick="copyText('${dork}')"> Copy</button>
 
-    <button onclick="searchGoogle('${dork}')">🔍 Search</button>
+    <button onclick="searchGoogle('${dork}')"> Search</button>
 </div>
     </div>
     `;
@@ -80,5 +80,69 @@ function searchGoogle(dork){
     let url = "https://www.google.com/search?q=" + encodeURIComponent(dork);
 
     window.open(url, "_blank");
+
+}
+
+function copyResult() {
+
+    let result = document.getElementById("result");
+
+    if (!result) {
+        alert("No result found!");
+        return;
+    }
+
+    navigator.clipboard.writeText(result.innerText)
+        .then(() => {
+            alert("✅ Result copied successfully!");
+        })
+        .catch(err => {
+            console.error(err);
+            alert(" Failed to copy.");
+        });
+
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const form = document.getElementById("lookupForm");
+    const button = document.getElementById("lookupBtn");
+
+    if (form && button) {
+
+        form.addEventListener("submit", function () {
+
+            button.innerHTML = "⏳ Looking up...";
+            button.disabled = true;
+
+        });
+
+    }
+
+});
+
+function searchHistory() {
+
+    let input = document.getElementById("historySearch").value.toLowerCase();
+
+    let cards = document.querySelectorAll(".result-card");
+
+    cards.forEach(card => {
+
+        if (card.innerText.toLowerCase().includes(input)) {
+            card.style.display = "";
+        } else {
+            card.style.display = "none";
+        }
+
+    });
+
+}
+
+function confirmLogout() {
+
+    if(confirm("Are you sure you want to logout?")){
+        window.location="/logout";
+    }
 
 }

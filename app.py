@@ -5,6 +5,8 @@ import whois
 import dns.resolver
 import requests
 from werkzeug.security import generate_password_hash, check_password_hash
+print("✅ THIS IS THE APP.PY BEING EXECUTED")
+
 app = Flask(__name__)
 
 app.secret_key = "my_secret_key_123"
@@ -340,28 +342,19 @@ def whois_lookup():
             if isinstance(status, list):
                 status = "\n".join(status[:6])
 
-            result = f"""
-            Domain Name
-{domain_name}
+                result = {
+    "Domain Name": domain_name,
+    "Registrar": data.registrar,
+    "Creation Date": creation,
+    "Expiration Date": expiration,
+    "Name Servers": nameservers,
+    "Status": status
+}
 
-Registrar
-{data.registrar}
 
-Creation Date
-{creation}
-
-Expiration Date
-{expiration}
-
-Name Servers
-{nameservers}
-
- Status
-{status}
-"""
 
         except Exception as e:
-            result = f"❌ Error: {e}"
+            result = f" Error: {e}"
 
     return render_template("whois.html", result=result)
 
@@ -371,35 +364,41 @@ def dns_lookup():
     if "user" not in session:
         return redirect("/login")
 
-    result = ""
+    result = None
 
     if request.method == "POST":
 
         domain = request.form["domain"]
 
         try:
+
+            result = {}
+
             # A Records
-            result += " A Records:\n"
-            for r in dns.resolver.resolve(domain, "A"):
-                result += str(r) + "\n"
+            result[" A Records"] = [
+                str(r) for r in dns.resolver.resolve(domain, "A")
+            ]
 
             # MX Records
-            result += "\n MX Records:\n"
-            for r in dns.resolver.resolve(domain, "MX"):
-                result += str(r.exchange) + "\n"
+            result[" MX Records"] = [
+                str(r.exchange) for r in dns.resolver.resolve(domain, "MX")
+            ]
 
             # NS Records
-            result += "\n NS Records:\n"
-            for r in dns.resolver.resolve(domain, "NS"):
-                result += str(r) + "\n"
+            result[" NS Records"] = [
+                str(r) for r in dns.resolver.resolve(domain, "NS")
+            ]
 
             # TXT Records
-            result += "\n TXT Records:\n"
-            for r in dns.resolver.resolve(domain, "TXT"):
-                result += str(r) + "\n"
+            result[" TXT Records"] = [
+                str(r) for r in dns.resolver.resolve(domain, "TXT")
+            ]
 
         except Exception as e:
-            result = "Error: " + str(e)
+
+            result = {
+                " Error": [str(e)]
+            }
 
     return render_template("dns.html", result=result)
 
@@ -416,40 +415,40 @@ def ip_lookup():
         ip = request.form["ip"]
 
         try:
+
             response = requests.get(f"http://ip-api.com/json/{ip}")
             data = response.json()
 
             if data["status"] == "success":
 
-                result = f"""
-IP Address : {data['query']}
-
-Country    : {data['country']}
-
-Region     : {data['regionName']}
-
-City       : {data['city']}
-
-ZIP Code   : {data['zip']}
-
-Latitude   : {data['lat']}
-
-Longitude  : {data['lon']}
-
-Timezone   : {data['timezone']}
-
-ISP        : {data['isp']}
-
-Organization : {data['org']}
-"""
+                result = {
+                    " IP Address": data["query"],
+                    " Country": data["country"],
+                    " Region": data["regionName"],
+                    " City": data["city"],
+                    " ZIP Code": data["zip"],
+                    " Latitude": data["lat"],
+                    " Longitude": data["lon"],
+                    " Timezone": data["timezone"],
+                    " ISP": data["isp"],
+                    " Organization": data["org"]
+                    }
 
             else:
-                result = "Invalid IP Address."
+                result = " Invalid IP Address."
 
         except Exception as e:
-            result = f"Error: {e}"
+            result = f" Error: {e}"
 
     return render_template("iplookup.html", result=result)
+
+@app.route("/about")
+def about():
+
+    if "user" not in session:
+        return redirect("/login")
+
+    return render_template("about.html")
 
 if __name__ == "__main__":
     app.run(debug=True)

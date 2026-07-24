@@ -8,7 +8,7 @@
 
 <div class="dashboard">
 
-    <h1>📜 Your Dork History</h1>
+    <h1> Your Dork History</h1>
 
     {% if history %}
 
@@ -20,7 +20,7 @@
             <p><strong>Created:</strong> {{ item[2] }}</p>
             <br>
             <a href="/delete_history/{{ item[0] }}">
-                <button>🗑 Delete</button>
+                <button> Delete</button>
             </a>
             <a href="/favorite/{{ item[0] }}">
                 <button> Favorite</button>
@@ -30,6 +30,13 @@
         <br>
 
         {% endfor %}
+
+        <input
+    type="text"
+    id="historySearch"
+    placeholder=" Search history..."
+    onkeyup="searchHistory()"
+>
 
     {% else %}
 
@@ -49,6 +56,12 @@
     </a>
 
 </div>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+<footer>
+    <p>© 2026 AI Dork Builder </p>
+</footer>
 
 </body>
 </html>

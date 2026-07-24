@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WHOIS Lookup</title>
 
     <link rel="stylesheet"
@@ -12,48 +10,71 @@
 
 <body>
 
-<div class="container">
+<div class="search-box">
 
-    <h1>🌐 WHOIS Lookup</h1>
+    <h1> WHOIS Lookup</h1>
 
     <p class="subtitle">
         Get domain registration information instantly.
     </p>
 
-    <form method="POST">
+    <form method="POST" id="lookupForm">
 
         <input
             type="text"
             name="domain"
-            placeholder="example.com"
+            placeholder="Enter domain (example.com)"
             required
         >
 
-        <button type="submit">
-            🔍 Lookup
+        <button type="submit" id="lookupBtn">
+             Lookup
         </button>
 
     </form>
 
-    {% if result %}
+</div>
 
-    <div class="result-card">
+{% if result %}
 
-        <h2>WHOIS Result</h2>
+<div class="result-card">
 
-        <pre>{{ result }}</pre>
+    <h2>WHOIS Result</h2>
 
-    </div>
+    <div id="result">
 
-    {% endif %}
+<div class="info-grid">
 
-    <br>
+{% for key, value in result.items() %}
 
-    <a href="/dashboard">
-        <button>⬅ Back to Dashboard</button>
-    </a>
+<div class="info-card">
+
+<h3>{{ key }}</h3>
+
+<p>{{ value }}</p>
 
 </div>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+<div class="button-group">
+
+    <button onclick="copyResult()">📋 Copy Result</button>
+
+    <a href="/dashboard" class="back-btn">⬅ Back to Dashboard</a>
+
+</div>
+</div>
+{% endif %}
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+<footer>
+    <p>© 2026 AI Dork Builder </p>
+</footer>
 
 </body>
 </html>
