@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>History</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="dashboard">
+
+    <h1>📜 Your Dork History</h1>
+
+    {% if history %}
+
+        {% for item in history %}
+        
+        <div class="card">
+            <p><strong>Dork:</strong></p>
+            <p>{{ item[1] }}</p>
+            <p><strong>Created:</strong> {{ item[2] }}</p>
+            <br>
+            <a href="/delete_history/{{ item[0] }}">
+                <button>🗑 Delete</button>
+            </a>
+            <a href="/favorite/{{ item[0] }}">
+                <button> Favorite</button>
+            </a>
+        </div>
+
+        <br>
+
+        {% endfor %}
+
+    {% else %}
+
+        <h3>No history found.</h3>
+
+    {% endif %}
+
+    <br>
+    
+    <a href="/export_pdf">
+        <button>📄 Export PDF</button>
+    </a>
+    <br><br>
+
+    <a href="/dashboard">
+        <button class="login-btn">⬅ Back to Dashboard</button>
+    </a>
+
+</div>
+
+</body>
+</html>

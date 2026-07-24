@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Favorites</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="dashboard">
+
+    <h1>⭐ My Favorite Dorks</h1>
+
+    {% if favorites %}
+
+        {% for item in favorites %}
+
+        <div class="card">
+
+            <p><strong>Dork:</strong></p>
+
+            <p>{{ item[1] }}</p>
+
+            <p><strong>Saved:</strong> {{ item[2] }}</p>
+
+        </div>
+
+        <br>
+
+        {% endfor %}
+
+    {% else %}
+
+        <h3>No favorite dorks yet.</h3>
+
+    {% endif %}
+
+    <br>
+
+    <a href="/dashboard">
+        <button class="login-btn">⬅ Back to Dashboard</button>
+    </a>
+
+</div>
+
+</body>
+</html>

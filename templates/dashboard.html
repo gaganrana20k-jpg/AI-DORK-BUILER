@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <h1>🛡 AI Dork Builder Dashboard</h1>
+
+    <h2> Welcome, {{ name }}</h2>
+
+    <div class="stats">
+
+    <div class="stat-card">
+        <h2>{{ history_count }}</h2>
+        <p>Total History</p>
+    </div>
+
+    <div class="stat-card">
+        <h2>{{ favorite_count }}</h2>
+        <p>Favorites</p>
+    </div>
+
+</div>
+
+    <div class="dashboard-cards">
+
+        <div class="card">
+            <h3>⚡ Generate Dorks</h3>
+            <p>Create advanced Google Dorks.</p>
+            <a href="/">Open Generator</a>
+        </div>
+        <div class="card">
+            <h3>📜 History</h3>
+            <p>View all your generated Google Dorks.</p>
+            <a href="/history">Open History</a>
+        </div>
+
+        <div class="card">
+            <h3> Favorites</h3>
+            <p>Save your favorite dorks.</p>
+            <a href="/favorites">Open Favorites</a>
+        </div>
+
+    </div>
+
+    <br>
+    
+    <a href="/logout">
+        <button class="login-btn">Logout</button>
+    </a>
+
+</div>
+
+</body>
+</html>
