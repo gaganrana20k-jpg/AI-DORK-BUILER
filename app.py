@@ -48,7 +48,7 @@ conn.close()
 def home():
     return render_template("index.html")
 
-@app.route("/login", methods=["GET","POST"])
+@app.route("/login", methods=["GET", "POST"])
 def login():
 
     if request.method == "POST":
@@ -58,12 +58,14 @@ def login():
 
         conn = sqlite3.connect("users.db")
         cursor = conn.cursor()
+
         cursor.execute(
             "SELECT * FROM users WHERE email=?",
             (email,)
         )
 
         user = cursor.fetchone()
+
         print("USER:", user)
         print("EMAIL ENTERED:", email)
         print("PASSWORD ENTERED:", password)
@@ -71,17 +73,21 @@ def login():
         conn.close()
 
         if user:
-
             print("STORED PASSWORD:", user[3])
             print("PASSWORD CHECK:", check_password_hash(user[3], password))
 
-            if user and check_password_hash(user[3], password):
-                session["user"] = user[1]
-                session["email"] = user[2]
+        if user and check_password_hash(user[3], password):
 
-                return redirect("/dashboard")
-            else:
-                return "<h1>Invalid Email or Password</h1>"
+            session["user"] = user[1]
+            session["email"] = user[2]
+
+            return redirect("/dashboard")
+
+        else:
+            return "<h1>Invalid Email or Password</h1>"
+
+    # VERY IMPORTANT
+    return render_template("login.html")
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
