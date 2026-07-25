@@ -64,18 +64,24 @@ def login():
         )
 
         user = cursor.fetchone()
+        print("USER:", user)
+        print("EMAIL ENTERED:", email)
+        print("PASSWORD ENTERED:", password)
+
         conn.close()
-        if user and check_password_hash(user[3], password):
 
-            session["user"] = user[1]
-            session["email"] = user[2]
+        if user:
 
-            return redirect("/dashboard")
-    
-        else:
-            return "<h1> Invalid Email or Password</h1>"
+            print("STORED PASSWORD:", user[3])
+            print("PASSWORD CHECK:", check_password_hash(user[3], password))
 
-    return render_template("login.html")
+            if user and check_password_hash(user[3], password):
+                session["user"] = user[1]
+                session["email"] = user[2]
+
+                return redirect("/dashboard")
+            else:
+                return "<h1>Invalid Email or Password</h1>"
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
