@@ -146,3 +146,24 @@ function confirmLogout() {
     }
 
 }
+
+const text = "🛡 AI Powered Google Dork Builder";
+const typing = document.getElementById("typing");
+
+if (typing) {
+
+    let i = 0;
+
+    function typeWriter() {
+
+        if (i < text.length) {
+            typing.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(typeWriter, 60);
+        }
+
+    }
+
+    typeWriter();
+
+}

@@ -1,62 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>AI Dork Builder</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
 </head>
 
 <body>
+
+<!-- ================= NAVBAR ================= -->
 
 <nav class="navbar">
 
     <div class="logo">
         🛡 AI Dork Builder
     </div>
-
+    
     <ul class="nav-links">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Generator</a></li>
-        <li><a href="#">Templates</a></li>
-        <li><a href="#">History</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="#features">Features</a></li>
         <li><a href="/about">About</a></li>
-    </ul>
-
+        </ul>
+    
     <div class="nav-buttons">
+        {% if session.get("user") %}
+        <a href="/dashboard">
+            <button class="login-btn">Dashboard</button>
+        </a>
+        {% else %}
         <a href="/login">
             <button class="login-btn">Login</button>
         </a>
+        {% endif %}
     </div>
 
 </nav>
+
+<!-- ================= HERO ================= -->
+
 <section class="hero">
-
-    <h1> AI Powered Google Dork Builder</h1>
-
-    <p>
-        Generate Google Dorks instantly for educational cybersecurity and OSINT research.
-    </p>
-
-    <div class="search-box">
-
-        <input type="text" id="website" placeholder="🌐 Enter website (example.com)">
-
-        <select id="dorkType">
-            <option value="">Find Website</option>
-            <option value="filetype:pdf">PDF Files</option>
-            <option value="inurl:login">Login Pages</option>
-            <option value="intitle:index.of">Open Directories</option>
-        </select>
-
-        <button onclick="generateDork()"> Generate Dorks</button>
-
-    </div>
-
-    <div id="result"></div>
     
-    <div class="ai-box">
+    <h1 id="typing"></h1>
+    <p id="subtitle">
+         Generate advanced Google Dorks instantly for
+         cybersecurity learning, OSINT research,
+         penetration testing practice, and educational purposes.
+        
+        </p>
+    <a href="/login">
+        <button class="hero-btn">
+            Get Started
+        </button>
+    </a>
+
+</section>
+
+<!-- ================= GENERATOR ================= -->
+
+<section id="generator">
+
+<div class="search-box">
+
+    <input
+        type="text"
+        id="website"
+        placeholder=" Enter Website (example.com)"
+    >
+
+    <select id="dorkType">
+
+        <option value="">Choose Dork Type</option>
+        <option value="filetype:pdf">PDF Files</option>
+        <option value="inurl:login">Login Pages</option>
+        <option value="intitle:index.of">Open Directories</option>
+
+    </select>
+
+    <button onclick="generateDork()">
+
+         Generate Dork
+
+    </button>
+
+</div>
+
+<div id="result"></div>
+
+</section>
+
+<!-- ================= AI ================= -->
+
+<div class="ai-box">
 
     <h2> AI Suggestions</h2>
 
@@ -68,59 +109,90 @@
 
 </div>
 
-</section>
+<!-- ================= STATS ================= -->
 
 <section class="stats">
 
     <div class="stat-card">
+
         <h2 id="totalDorks">0</h2>
         <p>Dorks Generated</p>
+
     </div>
 
     <div class="stat-card">
+
         <h2>10+</h2>
         <p>Dork Categories</p>
+
     </div>
 
     <div class="stat-card">
+
         <h2>100%</h2>
         <p>Educational Use</p>
+
     </div>
 
 </section>
-<section class="features">
 
-<div class="card">
-<h2>🔍 Google Dork Builder</h2>
-<p>Create advanced search queries easily.</p>
+<!-- ================= FEATURES ================= -->
+<section id="features" class="features"></section>
+
+    <div class="slider">
+
+        <div class="card">
+            <h2>Google Dork Builder</h2>
+            <p>Generate advanced Google Dorks instantly.</p>
+        </div>
+
+        <div class="card">
+            <h2>AI Assistant</h2>
+            <p>Receive intelligent suggestions for your searches.</p>
+        </div>
+
+        <div class="card">
+            <h2>Dork Templates</h2>
+            <p>Access ready-made Google Dork templates.</p>
+        </div>
+
+        <div class="card">
+            <h2>Query History</h2>
+            <p>View and manage previously generated dorks.</p>
+        </div>
+
+        <!-- Duplicate cards for infinite loop -->
+
+        <div class="card">
+            <h2>Google Dork Builder</h2>
+            <p>Generate advanced Google Dorks instantly.</p>
+        </div>
+
+        <div class="card">
+            <h2>AI Assistant</h2>
+            <p>Receive intelligent suggestions for your searches.</p>
+        </div>
+
+        <div class="card">
+            <h2>Dork Templates</h2>
+            <p>Access ready-made Google Dork templates.</p>
+        </div>
+
+        <div class="card">
+            <h2>Query History</h2>
+            <p>View and manage previously generated dorks.</p>
+        </div>
+
+    </div>
+
 </div>
 
-<div class="card">
-<h2>🤖 AI Assistant</h2>
-<p>Get smart suggestions for your search queries.</p>
-</div>
-
-<div class="card">
-<h2>📚 Dork Templates</h2>
-<p>Access a library of useful search templates.</p>
-</div>
-
-<div class="card">
-<h2>📊 Query History</h2>
-<p>Save and manage previously generated queries.</p>
-</div>
-
-</section>
 
 <footer>
-    <p>© 2026 AI Dork Builder | Internship Project</p>
+    <p>© 2026 AI Dork Builder | Developed by Gagan Rana</p>
 </footer>
 
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-
-<footer>
-    <p>© 2026 AI Dork Builder </p>
-</footer>
 
 </body>
 </html>

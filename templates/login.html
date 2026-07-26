@@ -12,42 +12,57 @@ href="{{ url_for('static', filename='css/style.css') }}">
 
 <body>
 
-<div class="login-box">
+<div class="login-page">
 
-<h1> Login</h1>
+    <div class="login-container">
 
-<form method="POST">
+        <img src="{{ url_for('static', filename='hacker.png') }}"
+             class="hacker"
+             alt="Hacker">
 
-    <input type="email"
-           name="email"
-           placeholder="Email"
-           required>
+        <div class="login-box">
 
-    <input type="password"
-           name="password"
-           placeholder="Password"
-           required>
+            <h1>Login</h1>
 
-    <button type="submit">
-        Login
-    </button>
+            <form method="POST">
 
-</form>
+                <input type="email"
+                       name="email"
+                       placeholder="Email"
+                       required>
 
-<p>
-Don't have an account?
+                <input type="password"
+                       name="password"
+                       placeholder="Password"
+                       required>
 
-<a href="/register">Register</a>
+                <button type="submit">
+                    Login
+                </button>
 
-</p>
+            </form>
+
+            <p>
+                Don't have an account?
+                <a href="/register">Register</a>
+            </p>
+
+        </div>
+
+    </div>
 
 </div>
+
+<footer>
+    <p>© 2026 AI Dork Builder</p>
+</footer>
+
+</body>
 
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 <footer>
-    <p>© 2026 AI Dork Builder </p>
+    <p>© 2026 AI Dork Builder</p>
 </footer>
 
 </body>
-</html>
